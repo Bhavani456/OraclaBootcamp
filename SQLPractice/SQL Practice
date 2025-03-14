@@ -56,3 +56,25 @@ group by manager_id;
 select extract(month from hire_date) as hiring_month,count(*) as Num_of_employees
 from hr.EMPLOYEES group by extract(month from hire_date)
 order by hiring_month;
+---Which department has the highest total salary among all employees
+select department_id,sum(salary) as Total_salary from hr.EMPLOYEES
+group by department_id order by Total_salary desc
+fetch first 1 row only;
+--it return which job getting higest avg salary
+select job_id,avg(salary) as avg_salary from hr.EMPLOYEES
+group by job_id order by avg_salary
+fetch first 1 row only;
+--It return how many employees reporting in each city while joing empoyees,departments and location table to get the city
+select l.city,count(*) as employees_count from hr.employees e join hr.departments d on e.department_id=d.department_id
+join hr.locations l on
+l.location_id=d.location_id group by l.city;
+
+--it returns how many employees in each department getting the commission
+select department_id,count(*) as "employees_with_commission" from hr.EMPLOYEES
+where COMMISSION_PCT is not null
+group by department_id;
+---It returns who the toatal salaries of an employees in each department who are not recivng commissions
+select department_id,sum(salary) as Toal_salary_without_commission
+from hr.EMPLOYEES
+where COMMISSION_PCT is null 
+group by department_id;
