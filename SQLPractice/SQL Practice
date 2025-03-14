@@ -1,1 +1,58 @@
+--It gives the No of employees in each department
+Select department_id,count(*) as "Employees Count" from hr.EMPLOYEES
+group by department_id;
+--It return avg salary of Each department
+select department_id,avg(salary) As Department_AvgSalary from hr.EMPLOYEES
+group by department_id;
 
+--it return the department wise who getting maximum and minimum slary
+select department_id,max(salary) as Max_salary,min(salary) as min_salary from hr.EMPLOYEES
+group by department_id;
+
+--It returns the Department wise Total salary of employees
+select department_id,sum(salary) as Total_salary from hr.EMPLOYEES
+group by department_id;
+--No of employees in each designation
+select job_id,count(*) as Employees_count
+from hr.EMPLOYEES group by job_id;
+
+--It returns the job_id wise avg salary
+select job_id,avg(salary) as Avg_salary from hr.EMPLOYEES
+group by job_id ;
+--return the maximum salary of an employee in each job_id
+select job_id,max(salary) as Max_salary
+from hr.EMPLOYEES group by job_id;
+
+--it gives Minmum salary of an employees in each job_id
+select job_id,min(salary) as min_salary
+from hr.EMPLOYEES group by job_id;
+---It returns the  the total salary ofemployees in  each job_id
+select job_id,sum(salary) as Total_salary
+ from hr.EMPLOYEES group by job_id;
+--it returns howmany employees joined in every year
+select extract(year from hire_date) as hiring_year,count(*) as Employes_hire
+from hr.EMPLOYEES group by extract(year from hire_date) order by hiring_year;
+--It return the location wise total salary of employees while joing the employees table with departments table to get the location
+select d.location_id,sum(e.salary) as Total_salary from hr.EMPLOYEES e
+join hr.departments d  on e.department_id=d.department_id
+group by d.location_id;
+--It return how many employees reported to each manager
+select manager_id,count(*) as Team_size from hr.EMPLOYEES
+where manager_id is not null
+group by manager_id;
+--It return who are the getting tha highest salary among of  all employees reporting to  manger 
+select manager_id,max(salary) as max_salary from hr.EMPLOYEES
+where manager_id is not null
+group by manager_id;
+
+---it return the avg salary of an employees under his manager
+
+select manager_id,avg(salary) as Avg_salary from hr.EMPLOYEES
+where manager_id is not null
+group by manager_id;
+
+--It return every month how many employees are hired in a particular company
+
+select extract(month from hire_date) as hiring_month,count(*) as Num_of_employees
+from hr.EMPLOYEES group by extract(month from hire_date)
+order by hiring_month;
