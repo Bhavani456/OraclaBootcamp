@@ -78,3 +78,32 @@ select department_id,sum(salary) as Toal_salary_without_commission
 from hr.EMPLOYEES
 where COMMISSION_PCT is null 
 group by department_id;
+
+
+-- Each product how much sales happens
+select prod_id,count(*) as "num_of_trxns" from sh.sales group by prod_id;
+-- avg amount sold in each product
+select prod_id,avg(amount_sold) as avg_sale from sh.SALES
+group by prod_id;
+-- what is the maximum and minumut amounts getting in each product
+select prod_id,max(amount_sold) as max_sale,min(amount_sold) as min_sale from sh.SALES
+group by prod_id;
+-- it retuens what is total revenue generated from each product
+select prod_id,sum(amount_sold) as Total_revenue from sh.SALES
+group by prod_id  order by Total_revenue;
+-- total no of times customer happens purching each product
+select cust_id,count(*) from sh.SALES
+group by cust_id;
+
+-- It return avg amount spent by each customer
+select cust_id,avg(amount_sold) as avg_spent_amount
+from sh.SALES
+group by cust_id;
+-- it returns maximum product price  purched each customer
+select cust_id,max(amount_sold) as max_amount_spent
+from sh.SALES
+group by prodcust_id;
+-- it returns mimmum product price  purched each customer
+select cust_id,min(amount_sold) as min_amount_spend
+from sh.SALES
+group by cust_id;
